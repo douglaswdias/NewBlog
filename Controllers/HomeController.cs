@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NewBlog.Attributes;
 
 namespace NewBlog.Controllers
 {
@@ -7,6 +8,7 @@ namespace NewBlog.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet("")]
+        [ApiKey]
         public IActionResult Get()
         {
             return Ok();
