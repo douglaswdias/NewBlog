@@ -54,7 +54,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 
 void LoadConfiguration(WebApplication app)
 {
-    Configuration.JwtKey = app.Configuration.GetValue<string>(key: "jwtKey");
+    Configuration.JwtKey = app.Configuration.GetValue<string>(key: "JwtKey");
     Configuration.ApiKeyName = app.Configuration.GetValue<string>(key: "ApiKeyName");
     Configuration.ApiKey = app.Configuration.GetValue<string>(key: "ApiKey");
 
