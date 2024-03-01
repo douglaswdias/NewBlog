@@ -6,12 +6,10 @@ using NewBlog.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-ConfigureAuthentication(builder);
 
-builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
-    options.SuppressModelStateInvalidFilter = true);
-builder.Services.AddDbContext<BlogDataContext>();
-builder.Services.AddTransient<TokenService>();
+ConfigureAuthentication(builder);
+ConfigureMvc(builder);
+ConfigureServices(builder);
 
 var app = builder.Build();
 LoadConfiguration(app);
@@ -19,7 +17,6 @@ LoadConfiguration(app);
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
@@ -41,6 +38,19 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
         };
     });
 }
+
+void ConfigureMvc(WebApplicationBuilder builder)
+{
+    builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+    options.SuppressModelStateInvalidFilter = true);
+}
+
+void ConfigureServices(WebApplicationBuilder builder)
+{
+    builder.Services.AddDbContext<BlogDataContext>();
+    builder.Services.AddTransient<TokenService>();
+}
+
 void LoadConfiguration(WebApplication app)
 {
     Configuration.JwtKey = app.Configuration.GetValue<string>(key: "jwtKey");
