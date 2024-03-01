@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NewBlog.ViewModels;
+namespace NewBlog.ViewModels.Accounts;
 public class RegisterViewModel
 {
     [Required(ErrorMessage = "Nome é obrigatório")]
