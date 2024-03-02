@@ -43,7 +43,10 @@ public class AccountController : ControllerBase
             await context.SaveChangesAsync();
 
             emailService.Send(
-                user.Name, user.Email, "Bem vindo ao blog", $"Sua senha é {password}");
+                user.Name, 
+                user.Email, 
+                "Bem vindo ao blog", 
+                $"Sua senha é {password}");
 
             return Ok(new ResultViewModel<dynamic>(new
             {

@@ -11,7 +11,7 @@ public class EmailService
         string subject,
         string body,
         string fromName = "douglas",
-        string fromEmail = "douglas@hotmail.com")
+        string fromEmail = "douglas.wdias@hotmail.com")
     {
         var smtpClient = new SmtpClient(Configuration.Smtp.Host, Configuration.Smtp.Port);
 
@@ -34,6 +34,7 @@ public class EmailService
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             return false;
         }
     }
