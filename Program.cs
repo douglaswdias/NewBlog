@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using NewBlog;
 using NewBlog.Services;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,12 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
 void ConfigureMvc(WebApplicationBuilder builder)
 {
     builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
-    options.SuppressModelStateInvalidFilter = true);
+    options.SuppressModelStateInvalidFilter = true)
+    .AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+    });
 }
 
 void ConfigureServices(WebApplicationBuilder builder)
