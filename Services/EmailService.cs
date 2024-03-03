@@ -11,7 +11,7 @@ public class EmailService
         string subject,
         string body,
         string fromName = "douglas",
-        string fromEmail = "douglas.wdias@hotmail.com")
+        string fromEmail = "douglas.devdias@gmail.com")
     {
         var smtpClient = new SmtpClient(Configuration.Smtp.Host, Configuration.Smtp.Port);
 
