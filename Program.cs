@@ -25,6 +25,17 @@ app.UseStaticFiles();
 app.UseResponseCompression();
 app.Run();
 
+void LoadConfiguration(WebApplication app)
+{
+    Configuration.JwtKey = app.Configuration.GetValue<string>(key: "JwtKey");
+    Configuration.ApiKeyName = app.Configuration.GetValue<string>(key: "ApiKeyName");
+    Configuration.ApiKey = app.Configuration.GetValue<string>(key: "ApiKey");
+
+    var smtp = new Configuration.SmtpConfigurantion();
+    app.Configuration.GetSection(key: "Smtp").Bind(smtp);
+    Configuration.Smtp = smtp;
+}
+
 void ConfigureAuthentication(WebApplicationBuilder builder)
 {
     var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
@@ -70,15 +81,4 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddDbContext<BlogDataContext>();
     builder.Services.AddTransient<TokenService>();
     builder.Services.AddTransient<EmailService>();
-}
-
-void LoadConfiguration(WebApplication app)
-{
-    Configuration.JwtKey = app.Configuration.GetValue<string>(key: "JwtKey");
-    Configuration.ApiKeyName = app.Configuration.GetValue<string>(key: "ApiKeyName");
-    Configuration.ApiKey = app.Configuration.GetValue<string>(key: "ApiKey");
-
-    var smtp = new Configuration.SmtpConfigurantion();
-    app.Configuration.GetSection(key: "Smtp").Bind(smtp);
-    Configuration.Smtp = smtp;
 }
