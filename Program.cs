@@ -17,11 +17,12 @@ ConfigureServices(builder);
 var app = builder.Build();
 LoadConfiguration(app);
 
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseResponseCompression();
-app.UseStaticFiles();
 app.MapControllers();
+app.UseStaticFiles();
+app.UseResponseCompression();
 app.Run();
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
